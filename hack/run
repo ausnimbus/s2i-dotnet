@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+NAME="dotnet"
+DISPLAY_NAME=".NET"
+FROM="microsoft/aspnetcore-build:%VERSION%-jessie"
+TYPE="s2i"
+VARIANT=""
+VERSIONS="1.1.2,2.0.0-preview1"
+
+DOCKER_PUSH=${DOCKER_PUSH:-"false"}
+
+source $(readlink -zf $(dirname "${BASH_SOURCE[0]}"))/../common/hack/run
