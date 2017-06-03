@@ -4,10 +4,10 @@
 * DO NOT EDIT IT DIRECTLY.
 */
 node {
-        def variants = "".split(',');
+        def variants = "default".split(',');
         for (int v = 0; v < variants.length; v++) {
 
-                def versions = "1.1.2,2.0.0-preview1".split(',');
+                def versions = "1.1.2".split(',');
                 for (int i = 0; i < versions.length; i++) {
 
                   if (variants[v] == "default") {

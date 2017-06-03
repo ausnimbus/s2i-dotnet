@@ -4,8 +4,8 @@ NAME="dotnet"
 DISPLAY_NAME=".NET"
 FROM="microsoft/aspnetcore-build:%VERSION%-jessie"
 TYPE="s2i"
-VARIANT=""
-VERSIONS="1.1.2,2.0.0-preview1"
+VARIANTS="default"
+VERSIONS="1.1.2"
 
 DOCKER_PUSH=${DOCKER_PUSH:-"false"}
 

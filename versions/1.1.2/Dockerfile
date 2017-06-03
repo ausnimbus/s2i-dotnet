@@ -13,14 +13,15 @@ LABEL summary="Platform for running .NET 1.1.2 applications" \
       io.k8s.description="Platform for running .NET 1.1.2 applications" \
       io.k8s.display-name=".NET 1.1.2"
 
-ENV HOME=/opt/app-root/src
+ENV USER=999 \
+    HOME=/opt/app-root/src
 
 USER 0
 
 RUN apt-get update && apt-get install -y \
       rsync nano vim && \
     mkdir -p $HOME && \
-    useradd -u 1001 -g 0 -d ${HOME} -s /sbin/nologin \
+    useradd -u 1001 -g 0 -d $HOME -s /sbin/nologin \
       -c "Default Application User" default && \
     chown -R 1001:0 /opt/app-root
 
@@ -55,17 +56,22 @@ CMD /usr/bin/base-usage
 # </s2i>
 # <template>
 
-ENV ASPNETCORE_URLS http://+:8080
+ENV ASPNETCORE_URLS=http://+:8080 \
+    DOTNET_VERSION=1.1.2 \
+    DOTNET_PUBLISH_PATH=/opt/app-root/publish \
+    DOTNET_RUN_SCRIPT=/opt/app-root/publish/s2i_run \
+    # Don't download/extract docs for nuget packages
+    NUGET_XMLDOC_MODE=skip
 
 # </template>
 # <post>
 
-# Standardize on UID 999
-RUN usermod -o -u 999 default
+# Standardize on UID $USER
+RUN usermod -o -u $USER default
 
 # Drop the root user and make the content of /opt/app-root owned by user default
-RUN chown -R 999:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
-USER 999
+RUN chown -R $USER:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
+USER $USER
 
 ENTRYPOINT ["container-entrypoint"]
 

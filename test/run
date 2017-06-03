@@ -11,8 +11,8 @@ IMAGE_NAME=${IMAGE_NAME-ausnimbus/s2i-dotnet:1.1.2}
 VERSION=${VERSION-"1.1.2"}
 S2I_ARGS=${S2I_ARGS:-""}
 
-TEST_APPS=({MusicStore-$VERSION/samples/MusicStore/,SignalR-$VERSION})
-VERSION_COMMAND="dotnet version"
+TEST_APPS=({aspnetweb,aspnetmvc})
+VERSION_COMMAND="env"
 
 extra_tests() {
   echo ""

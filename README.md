@@ -10,32 +10,9 @@ on [AusNimbus](https://www.ausnimbus.com.au/).
 
 ## Environment variables
 
-* **DOTNET_STARTUP_PROJECT**
+* **DOTNET_PROJECT**
 
-    Used to select the project to run. This must be the folder containing
-    `project.json`. Defaults to `.`.
-
-* **DOTNET_PUBLISH**
-
-    Used to control whether the application should be built by executing
-    `dotnet build` or `dotnet publish`. To publish the application set the
-    value to `true`. It is recommended to publish your application. For
-    backwards compatibility, the default is `false`. In the next major release,
-    this variable will be removed and the builder will always publish the
-    application.
-
-* **DOTNET_ASSEMBLY_NAME**
-
-    Used to select the assembly to run. This must NOT include the `.dll` extension.
-    Set this to the output assembly name specified in `project.json` (`name`, `buildOptions/outputName`).
-    For `project.json`, the assembly name defaults to the `project.json` parent folder. The name of the
-    parent folder is used as the default value for `DOTNET_ASSEMBLY_NAME`.
-
-    When `project.json` is at the `context-dir`, the parent folder name will be 'src'. So, by
-    default, this generates a 'src.dll' assembly. Setting `DOTNET_ASSEMBLY_NAME` will cause:
-    - the assembly to be <DOTNET_ASSEMBLY_NAME>.dll
-    - the application sources to be in subfolder `DOTNET_ASSEMBLY_NAME` in the deployed
-    container.
+    Used to select the project to run. This must be the path to the .csproj file
 
 * **DOTNET_RESTORE_SOURCES**
 

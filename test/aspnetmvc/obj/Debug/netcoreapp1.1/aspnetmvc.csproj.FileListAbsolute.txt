@@ -1,0 +1,8 @@
+/opt/app-root/src/temp/aspnetmvc/bin/Debug/netcoreapp1.1/aspnetmvc.deps.json
+/opt/app-root/src/temp/aspnetmvc/bin/Debug/netcoreapp1.1/aspnetmvc.runtimeconfig.json
+/opt/app-root/src/temp/aspnetmvc/bin/Debug/netcoreapp1.1/aspnetmvc.runtimeconfig.dev.json
+/opt/app-root/src/temp/aspnetmvc/bin/Debug/netcoreapp1.1/aspnetmvc.dll
+/opt/app-root/src/temp/aspnetmvc/bin/Debug/netcoreapp1.1/aspnetmvc.pdb
+/opt/app-root/src/temp/aspnetmvc/obj/Debug/netcoreapp1.1/aspnetmvc.AssemblyInfo.cs
+/opt/app-root/src/temp/aspnetmvc/obj/Debug/netcoreapp1.1/aspnetmvc.dll
+/opt/app-root/src/temp/aspnetmvc/obj/Debug/netcoreapp1.1/aspnetmvc.pdb
