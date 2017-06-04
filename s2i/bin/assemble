@@ -6,52 +6,63 @@ if [ -d /tmp/artifacts/ ]; then
     mv -v /tmp/artifacts/* ./
 fi
 
-if [ -n "${DOTNET_NPM_TOOLS}" ]; then
-  echo "---> Installing npm tools ..."
+echo "---> Installing application source ..."
+mv /tmp/src/* ./
+
+# Default dotnet project to first *.csproj file
+if [ -z "$DOTNET_PROJECT" ]; then
+  echo "---> Detecting DOTNET_PROJECT"
+  DOTNET_PROJECT="$(ls *.csproj | head -1)"
+fi
+
+APP_NAME=$(basename "$DOTNET_PROJECT")
+APP_FILE="${APP_NAME%.*}"
+APP_FILE_EXTENSION="${APP_NAME##*.}"
+
+if [ "$APP_FILE_EXTENSION" == "dll" ]; then
+  echo "---> Published project provided"
+  mkdir -p $DOTNET_PUBLISH_PATH
+  mv ./* $DOTNET_PUBLISH_PATH
+
+else
 
   if [ ! -z $NPM_MIRROR ]; then
     echo "---> Setting npm mirror"
     npm config set registry $NPM_MIRROR
   fi
 
-  pushd $HOME
-  npm install ${DOTNET_NPM_TOOLS}
-  popd
+  if [ -f "./bower.json" ]; then
+    echo "---> Installing bower dependencies (found ./bower.json) ..."
+    bower install
+  elif [ -f "./package.json" ]; then
+    echo "---> Installing npm dependencies (found ./package.json) ..."
+    npm install
+  fi
+
+  # Build nuget sources list for when doing the restore
+  RESTORE_OPTIONS=""
+  for SOURCE in $DOTNET_RESTORE_SOURCES; do
+    RESTORE_OPTIONS="$RESTORE_OPTIONS --source $SOURCE"
+  done
+
+  echo "---> Installing dependencies ..."
+  dotnet restore $RESTORE_OPTIONS
+
+  # run tests
+  for TEST_PROJECT in $DOTNET_TEST_PROJECTS; do
+      echo "---> Running test project: $TEST_PROJECT..."
+      dotnet test "$TEST_PROJECT" -f "$DOTNET_FRAMEWORK"
+  done
+
+  # publish application
+  echo "---> Publishing application ..."
+  DOTNET_CONFIGURATION="${DOTNET_CONFIGURATION:-Release}"
+  dotnet publish -f "$DOTNET_FRAMEWORK" -c "$DOTNET_CONFIGURATION" "$DOTNET_PROJECT" -o "$DOTNET_PUBLISH_PATH"
 fi
-
-echo "---> Installing application source ..."
-mv /tmp/src/* ./
-
-# Build nuget sources list for when doing the restore
-RESTORE_OPTIONS=""
-for SOURCE in $DOTNET_RESTORE_SOURCES; do
-  RESTORE_OPTIONS="$RESTORE_OPTIONS --source $SOURCE"
-done
-
-echo "---> Installing dependencies ..."
-dotnet restore $RESTORE_OPTIONS
-
-# run tests
-for TEST_PROJECT in $DOTNET_TEST_PROJECTS; do
-    echo "---> Running test project: $TEST_PROJECT..."
-    dotnet test "$TEST_PROJECT" -f "$DOTNET_FRAMEWORK"
-done
-
-DOTNET_CONFIGURATION="${DOTNET_CONFIGURATION:-Release}"
-# Set dotnet project to first *.csproj file
-if [ -z "$DOTNET_PROJECT" ]; then
-  DOTNET_PROJECT="$(ls *.csproj | head -1)"
-fi
-
-# publish application
-echo "---> Publishing application ..."
-dotnet publish -f "$DOTNET_FRAMEWORK" -c "$DOTNET_CONFIGURATION" "$DOTNET_PROJECT" -o "$DOTNET_PUBLISH_PATH"
-
-APP_DLL_NAME="$(basename $DOTNET_PROJECT .csproj)"
 
 # check if the assembly used by the script exists
-if [ ! -f "$DOTNET_PUBLISH_PATH/${APP_DLL_NAME}.dll" ]; then
-  echo "error: Build output does not contain entrypoint assembly: ${APP_DLL_NAME}.dll"
+if [ ! -f "$DOTNET_PUBLISH_PATH/${APP_FILE}.dll" ]; then
+  echo "error: Build output does not contain entrypoint assembly: ${APP_FILE}.dll"
   exit 1
 fi
 
@@ -59,11 +70,9 @@ fi
 cat << EOF >"$DOTNET_RUN_SCRIPT"
 #!/bin/bash
 cd $DOTNET_PUBLISH_PATH
-exec dotnet ${APP_DLL_NAME}.dll \$@
+exec dotnet ${APP_FILE}.dll \$@
 EOF
 chmod +x "$DOTNET_RUN_SCRIPT"
 
-# Fix source directory permissions
-fix-permissions ./
-# set permissions for any installed artifacts
+# Fix permissions
 fix-permissions /opt/app-root

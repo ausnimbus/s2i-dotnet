@@ -11,7 +11,7 @@ IMAGE_NAME=${IMAGE_NAME-ausnimbus/s2i-dotnet:1.1.2}
 VERSION=${VERSION-"1.1.2"}
 S2I_ARGS=${S2I_ARGS:-""}
 
-TEST_APPS=({aspnetweb,aspnetmvc})
+TEST_APPS=({aspnetweb,aspnetmvc,asp_vendored})
 VERSION_COMMAND="env"
 
 extra_tests() {

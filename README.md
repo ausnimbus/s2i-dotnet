@@ -5,22 +5,21 @@
 
 [AusNimbus](https://www.ausnimbus.com.au/) builder for .NET provides a fast, secure and reliable [.NET hosting](https://www.ausnimbus.com.au/languages/dotnet-hosting/) environment.
 
+Bower and NPM are included and used if the appropriate `bower.json` or `package.json` file are found.
 
 ## Environment variables
 
 * **DOTNET_PROJECT**
 
-    Used to select the project to run. This must be the path to the .csproj file
+    This must be the path to the `.csproj` or `.dll`
+
+    By default it will search for the first `.csproj` file
+    If you set `DOTNET_PROJECT` to a published `.dll` file, the build process will be skipped.
 
 * **DOTNET_RESTORE_SOURCES**
 
     Used to specify the list of NuGet package sources used during the restore operation. This overrides
     all of the sources specified in the NuGet.config file.
-
-* **DOTNET_NPM_TOOLS**
-
-    Used to specify a list of npm packages to install before building the app.
-    Defaults to ``.
 
 * **DOTNET_TEST_PROJECTS**
 
