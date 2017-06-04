@@ -1,11 +1,9 @@
-# .NET S2I Builder
+# AusNimbus Builder for .NET
 
 [![Build Status](https://travis-ci.org/ausnimbus/s2i-dotnet.svg?branch=master)](https://travis-ci.org/ausnimbus/s2i-dotnet)
 [![Docker Repository on Quay](https://quay.io/repository/ausnimbus/s2i-dotnet/status "Docker Repository on Quay")](https://quay.io/repository/ausnimbus/s2i-dotnet)
 
-This repository contains the source for the [source-to-image](https://github.com/openshift/source-to-image)
-builders used to deploy [.NET applications](https://www.ausnimbus.com.au/languages/dotnet/)
-on [AusNimbus](https://www.ausnimbus.com.au/).
+[AusNimbus](https://www.ausnimbus.com.au/) builder for .NET provides a fast, secure and reliable [.NET hosting](https://www.ausnimbus.com.au/languages/dotnet-hosting/) environment.
 
 
 ## Environment variables
