@@ -40,7 +40,7 @@ node {
                                                                         "name" : "${tag}",
                                                                         "from" : [
                                                                                 "kind" : "DockerImage",
-                                                                                "name" : "microsoft/aspnetcore-build:%VERSION%-jessie:${tag}",
+                                                                                "name" : "microsoft/aspnetcore-build:%VERSION%-jessie",
                                                                         ],
                                                                         "referencePolicy" : [
                                                                                 "type" : "Source"
@@ -114,12 +114,13 @@ node {
         echo "==============================="
         def builds = openshift.startBuild("s2i-dotnet-${tag}");
 
-        timeout(10) {
+        timeout(20) {
                 builds.untilEach(1) {
                         return it.object().status.phase == "Complete"
                 }
         }
         echo "Finished build ${builds.names()}"
+        builds.logs()
 }
 
                                 }
