@@ -40,7 +40,7 @@ node {
                                                                         "name" : "${tag}",
                                                                         "from" : [
                                                                                 "kind" : "DockerImage",
-                                                                                "name" : "microsoft/aspnetcore-build:%VERSION%-jessie",
+                                                                                "name" : "microsoft/aspnetcore-build:${versions[i]}-jessie",
                                                                         ],
                                                                         "referencePolicy" : [
                                                                                 "type" : "Source"

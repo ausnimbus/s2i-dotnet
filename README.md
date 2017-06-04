@@ -42,4 +42,3 @@
 The versions currently supported are:
 
 - 1.1.2
-- 2.0.0-preview
