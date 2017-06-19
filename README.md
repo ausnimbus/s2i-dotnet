@@ -1,40 +1,38 @@
-# AusNimbus Builder for .NET
+# AusNimbus Builder for .NET [![Build Status](https://travis-ci.org/ausnimbus/s2i-dotnet.svg?branch=master)](https://travis-ci.org/ausnimbus/s2i-dotnet) [![Docker Repository on Quay](https://quay.io/repository/ausnimbus/s2i-dotnet/status "Docker Repository on Quay")](https://quay.io/repository/ausnimbus/s2i-dotnet)
 
-[![Build Status](https://travis-ci.org/ausnimbus/s2i-dotnet.svg?branch=master)](https://travis-ci.org/ausnimbus/s2i-dotnet)
-[![Docker Repository on Quay](https://quay.io/repository/ausnimbus/s2i-dotnet/status "Docker Repository on Quay")](https://quay.io/repository/ausnimbus/s2i-dotnet)
+[![.NET](https://user-images.githubusercontent.com/2239920/27292957-5a162312-5558-11e7-999e-a6abb05e2c90.jpg)](https://www.ausnimbus.com.au/)
 
-[AusNimbus](https://www.ausnimbus.com.au/) builder for .NET provides a fast, secure and reliable [.NET hosting](https://www.ausnimbus.com.au/languages/dotnet-hosting/) environment.
+The [AusNimbus](https://www.ausnimbus.com.au/) builder for .NET provides a fast, secure and reliable [ASP.NET](https://www.ausnimbus.com.au/apps/aspnet-hosting/) and [.NET hosting](https://www.ausnimbus.com.au/languages/dotnet-hosting/) environment.
+
+It supports projects that use `.csproj` or pre-compiled `.dll` packages.
 
 Bower and NPM are included and used if the appropriate `bower.json` or `package.json` file are found.
+
+Web processes must bind to port `8080`, and only the HTTP protocol is permitted for incoming connections.
 
 ## Environment variables
 
 * **DOTNET_PROJECT**
-
-    This must be the path to the `.csproj` or `.dll`
-
-    By default it will search for the first `.csproj` file
+    * This must be the path to the `.csproj` or `.dll`
+    * By default it will search for the first `.csproj` file
     If you set `DOTNET_PROJECT` to a published `.dll` file, the build process will be skipped.
 
 * **DOTNET_RESTORE_SOURCES**
-
-    Used to specify the list of NuGet package sources used during the restore operation. This overrides
+    * Used to specify the list of NuGet package sources used during the restore operation.
+    * This overrides
     all of the sources specified in the NuGet.config file.
 
 * **DOTNET_TEST_PROJECTS**
-
-    Used to specify the list of test projects to run. This must be folders containing
-    `project.json`. `dotnet test` is invoked for each folder. Defaults to ``.
+    * Used to specify the list of test projects to run. `dotnet test` is invoked for each folder.
+    * Default: ``
 
 * **DOTNET_CONFIGURATION**
-
-    Used to run the application in Debug or Release mode. This should be either
-    `Release` or `Debug`.  This is passed to the `dotnet publish` invocation.
-    Defaults to `Release`.
+    * Used to run the application in Debug or Release mode. This should be either `Release` or `Debug`.
+    * This is passed to the `dotnet publish` invocation.
+    * Default : `Release`.
 
 * **NPM_MIRROR**
-
-    Use a custom NPM registry mirror to download packages during the build process.
+    * Use a custom NPM registry mirror to download packages during the build process.
 
 ## Versions
 
