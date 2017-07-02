@@ -13,25 +13,29 @@ Web processes must bind to port `8080`, and only the HTTP protocol is permitted 
 ## Environment variables
 
 * **DOTNET_PROJECT**
-    * This must be the path to the `.csproj` or `.dll`
-    * By default it will search for the first `.csproj` file
-    If you set `DOTNET_PROJECT` to a published `.dll` file, the build process will be skipped.
+
+    * This must be the path to the `.csproj` or published `.dll`
+    * By default it will search for the first `.csproj` file (alphabetically)
+    If you set `DOTNET_PROJECT` to a `.dll` file, the build process is be skipped.
 
 * **DOTNET_RESTORE_SOURCES**
+
     * Used to specify the list of NuGet package sources used during the restore operation.
-    * This overrides
-    all of the sources specified in the NuGet.config file.
+    * This overrides all of the sources specified in your NuGet.config file.
 
 * **DOTNET_TEST_PROJECTS**
+
     * Used to specify the list of test projects to run. `dotnet test` is invoked for each folder.
     * Default: ``
 
 * **DOTNET_CONFIGURATION**
+
     * Used to run the application in Debug or Release mode. This should be either `Release` or `Debug`.
     * This is passed to the `dotnet publish` invocation.
     * Default : `Release`.
 
 * **NPM_MIRROR**
+
     * Use a custom NPM registry mirror to download packages during the build process.
 
 ## Versions

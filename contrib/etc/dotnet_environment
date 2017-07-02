@@ -4,8 +4,8 @@ source cgroup-limits
 set -e
 set -o pipefail
 
-# Ignore missing and include hidden files
-shopt -s nullglob dotglob
+# Include hidden files
+shopt -s dotglob
 
 # Set the umask to be '002' so that any files/directories created from
 # this point are group writable.

@@ -1,7 +1,7 @@
 #!/bin/bash -e
 source /opt/app-root/etc/dotnet_environment
 
-if [ -d /tmp/artifacts/ ]; then
+if ls -U /tmp/artifacts/* 1> /dev/null 2>&1; then
     echo "---> Restoring build artifacts..."
     mv -v /tmp/artifacts/* ./
 fi
