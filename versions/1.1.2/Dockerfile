@@ -61,7 +61,7 @@ CMD /usr/bin/base-usage
 ENV ASPNETCORE_URLS=http://+:8080 \
     DOTNET_VERSION=1.1.2 \
     DOTNET_PUBLISH_PATH=/opt/app-root/publish \
-    DOTNET_RUN_SCRIPT=/opt/app-root/publish/s2i_run \
+    DOTNET_APP_SCRIPT=/opt/app-root/publish/s2i_run \
     # Don't download/extract docs for nuget packages
     NUGET_XMLDOC_MODE=skip
 

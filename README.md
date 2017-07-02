@@ -12,11 +12,12 @@ Web processes must bind to port `8080`, and only the HTTP protocol is permitted 
 
 ## Environment variables
 
-* **DOTNET_PROJECT**
+* **DOTNET_APP**
 
     * This must be the path to the `.csproj` or published `.dll`
     * By default it will search for the first `.csproj` file (alphabetically)
-    If you set `DOTNET_PROJECT` to a `.dll` file, the build process is be skipped.
+
+    If you set `DOTNET_APP` to a `.dll` file, the build process is be skipped.
 
 * **DOTNET_RESTORE_SOURCES**
 
@@ -28,7 +29,7 @@ Web processes must bind to port `8080`, and only the HTTP protocol is permitted 
     * Used to specify the list of test projects to run. `dotnet test` is invoked for each folder.
     * Default: ``
 
-* **DOTNET_CONFIGURATION**
+* **DOTNET_ENV**
 
     * Used to run the application in Debug or Release mode. This should be either `Release` or `Debug`.
     * This is passed to the `dotnet publish` invocation.

@@ -2,4 +2,4 @@
 source /opt/app-root/etc/dotnet_environment
 
 echo "---> Running application ..."
-exec "$DOTNET_RUN_SCRIPT"
+exec "$DOTNET_APP_SCRIPT"

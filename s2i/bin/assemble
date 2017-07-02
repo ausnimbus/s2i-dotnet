@@ -9,13 +9,13 @@ fi
 echo "---> Installing application source ..."
 mv /tmp/src/* ./
 
-# Default dotnet project to first *.csproj file
-if [ -z "$DOTNET_PROJECT" ]; then
-  echo "---> Detecting DOTNET_PROJECT"
-  DOTNET_PROJECT="$(ls *.csproj | head -1)"
+# Default dotnet run to first *.csproj file
+if [ -z "$DOTNET_APP" ]; then
+  echo "---> Detecting DOTNET_APP"
+  DOTNET_APP="$(ls *.csproj | head -1)"
 fi
 
-APP_NAME=$(basename "$DOTNET_PROJECT")
+APP_NAME=$(basename "$DOTNET_APP")
 APP_FILE="${APP_NAME%.*}"
 APP_FILE_EXTENSION="${APP_NAME##*.}"
 
@@ -56,8 +56,8 @@ else
 
   # publish application
   echo "---> Publishing application ..."
-  DOTNET_CONFIGURATION="${DOTNET_CONFIGURATION:-Release}"
-  dotnet publish -f "$DOTNET_FRAMEWORK" -c "$DOTNET_CONFIGURATION" "$DOTNET_PROJECT" -o "$DOTNET_PUBLISH_PATH"
+  DOTNET_ENV="${DOTNET_ENV:-Release}"
+  dotnet publish -f "$DOTNET_FRAMEWORK" -c "$DOTNET_ENV" "$DOTNET_APP" -o "$DOTNET_PUBLISH_PATH"
 fi
 
 # check if the assembly used by the script exists
@@ -67,12 +67,12 @@ if [ ! -f "$DOTNET_PUBLISH_PATH/${APP_FILE}.dll" ]; then
 fi
 
 # Create run script in publish folder
-cat << EOF >"$DOTNET_RUN_SCRIPT"
+cat << EOF >"$DOTNET_APP_SCRIPT"
 #!/bin/bash
 cd $DOTNET_PUBLISH_PATH
 exec dotnet ${APP_FILE}.dll \$@
 EOF
-chmod +x "$DOTNET_RUN_SCRIPT"
+chmod +x "$DOTNET_APP_SCRIPT"
 
 # Fix permissions
 fix-permissions /opt/app-root
