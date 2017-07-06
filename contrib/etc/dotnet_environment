@@ -15,3 +15,8 @@ DOTNET_FRAMEWORK="$(echo netcoreapp$DOTNET_VERSION | sed 's/\.[^.]*$//')"
 
 echo "--> DOTNET_VERSION $DOTNET_VERSION"
 echo "--> DOTNET_FRAMEWORK $DOTNET_FRAMEWORK"
+
+# Overwrite ENV when DEBUG==TRUE
+if [ "$DEBUG" == "TRUE" ]; then
+  DOTNET_ENV="development"
+fi
