@@ -6,6 +6,20 @@ The [AusNimbus](https://www.ausnimbus.com.au/) builder for .NET provides a fast,
 
 This document describes the behaviour and environment configuration when running your .NET Core apps on AusNimbus.
 
+- [Runtime Environments](#runtime-environments)
+- [Web Process](#web-process)
+- [Dependency Management](#dependency-management)
+- [Environment Configuration](#environment-configuration)
+- [Advanced](#advanced)
+  - [Build Customization](#build-customization)
+    - [Configuring npm](#configuring-npm)
+  - [Running Tests](#running-tests)
+- [Extending](#extending)
+  - [Build Stage (assemble)](#build-stage-assemble)
+  - [Runtime Stage (run)](#runtime-stage-run)
+  - [Persistent Environment Variables](#persistent-environment-variables)
+- [Debug Mode](#debug-mode)
+
 ## Runtime Environments
 
 AusNimbus supports the latest stable release.
@@ -52,14 +66,6 @@ NAME                   | Description
 -----------------------|-------------
 DOTNET_RESTORE_SOURCES | Specify the list of NuGet package sources used during the restore operation.
 
-### Running Tests
-
-You may specify a list of test projects to run as part of the build stage using the following environment variable:
-
-NAME                  | Description   
-----------------------|-------------------
-DOTNET_TEST_PROJECTS  | `dotnet test` is invoked for each folder
-
 #### Configuring npm
 
 If you would like to use a custom npm mirror you may use the following environment variable:
@@ -69,6 +75,14 @@ NAME        | Description
 NPM_MIRROR  | Define a custom npm registry mirror for downloading dependencies
 
 You can also customize npm further by including a [.npmrc](https://docs.npmjs.com/files/npmrc) file in your project’s root.
+
+### Running Tests
+
+You may specify a list of test projects to run as part of the build stage using the following environment variable:
+
+NAME                  | Description   
+----------------------|-------------------
+DOTNET_TEST_PROJECTS  | `dotnet test` is invoked for each folder
 
 ## Extending
 

@@ -1,5 +1,11 @@
 #!/bin/bash -e
 source /opt/app-root/etc/dotnet_environment
 
-echo "---> Running application ..."
-exec "$DOTNET_APP_SCRIPT"
+# APP_RUN defined
+if [[ -n "$APP_RUN" ]]; then
+  echo "---> Running application from ($APP_RUN) ..."
+  eval bash -c "$APP_RUN"
+else
+  echo "---> Running application ..."
+  exec "$DOTNET_APP_SCRIPT"
+fi
